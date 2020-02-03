@@ -1,18 +1,20 @@
-// Base asteria sistema preguntes
-// Aquesta base integra les diverses llibreries i sistemes que s'han d'emprar:
-//  * UDP (dgram): Permet la comunicació entre el servidor i el client Arduino 
-//  * Express: permet crear un servidor HTTP per a tirar la GUI
-//  * Socket.io: permet la comunicació fluïda entre el servidor i la GUI
-//  * mongo.js: permet connexio a la base de dades
+// Umbra
+// 2019 - 2020
+
+/*
+Servidor Node.JS de la visualització de les partícules
+Utilitza les llibraries:
+  - UDP (dgram): Per comunicar el servidor amb el client Arduino 
+  - Express: Per crear un servidor HTTP per mostrar el contingut generat en temps real
+  - P5.JS: Per generar el vídeo de les partícules interactives en temps real
+  - Socket.io: Per generar una comunicació fluïda entre el servidor i la interfície
+
+*/
 
 // Creem el servidor express, que hosteja la web, en un port http
 const express = require('express')
 const app = express()
 const server = require('http').createServer(app)
-
-// // Creem la connexió amb la BBDD de mongo
-// const mongojs = require('mongojs')
-// const db = mongojs('mongodb://...', ['collection'])
 
 // Creem el socket UDP4 per a comunicar-nos amb l'arduino 
 const dgram = require('dgram')
@@ -24,7 +26,7 @@ const io = require('socket.io').listen(server)
 // Creem un espai per al socket, que ens permetrà comunicar-nos amb la web. 
 const canvas = io.of('/canvas')
 
-// vinculem l'entorn gràfic a la ruta http '/video', 
+// vinculem l'entorn gràfic a la ruta http '/canvas', 
 app.use('/canvas', express.static('public/canvas'))
 
 // Iniciem el servidor al port 8080, el comu per http. Iniciem a la ip 0.0.0.0 perquè hi pugui accedir qualsevol ordinador

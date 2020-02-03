@@ -11,7 +11,7 @@ function Star() {
 
   this.update = function () {
     let coef = conv;
-    let sum = (conv > 1 ? random(random(conv)) : 0);
+    let sum = conv > 1 ? random(random(conv)) : 0;
     this.z = this.z - speed;
     this.x = this.x - random(coef + sum, -(coef + sum));
     this.y = this.y - random(coef + sum, -(coef + sum));
@@ -21,7 +21,7 @@ function Star() {
       this.y = random(-height, height);
       this.pz = this.z;
     }
-  }
+  };
 
   this.show = function () {
     fill(255, 255, 255);
@@ -40,6 +40,5 @@ function Star() {
 
     stroke(255, 255, 255);
     line(px, py, sx, sy);
-
-  }
+  };
 }

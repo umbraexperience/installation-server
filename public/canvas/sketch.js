@@ -1,4 +1,4 @@
-let socket = io("/canvas")
+let socket = io("/canvas");
 
 var stars = [];
 
@@ -11,27 +11,38 @@ let state = false;
 let tiemStarted;
 
 function setup() {
-  createCanvas(600, 600);
+  createCanvas(windowWidth, windowHeight);
   for (var i = 0; i < 2000; i++) {
     stars[i] = new Star();
   }
 
-  socket.on('message', (msg) => {
-    state = msg
-    console.log(msg)
+  socket.on("message", msg => {
+    state = msg;
+    console.log(msg);
     if (state) {
       tiemStarted = millis();
-    } else conv = 0
-  })
+    } else conv = 0;
+  });
 }
 
 function draw() {
-
-  if (state == 1) { conv = (millis() - tiemStarted) / 1000 }
+  if (state == 1) {
+    conv = (millis() - tiemStarted) / 1000;
+  }
   background(0, 0, 0);
   translate(width / 2, height / 2);
   for (var i = 0; i < stars.length; i++) {
     stars[i].update();
     stars[i].show();
   }
+}
+
+function mousePressed() {
+  let fs = fullscreen();
+  fullscreen(!fs);
+}
+
+/* full screening will change the size of the canvas */
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
