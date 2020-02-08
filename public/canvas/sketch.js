@@ -21,13 +21,31 @@ function setup() {
     console.log(msg);
     if (state) {
       tiemStarted = millis();
-    } else conv = 0;
+    } else {
+      if (conv >= 0) {
+        const interval = setInterval(() => {
+          let down = conv * 0.1;
+          conv = conv - down;
+          speed = 1
+          console.log("disminuint", conv);
+          if (conv <= 0) {
+            conv = 0;
+            clearInterval(interval);
+          }
+        }, 10);
+      } else {
+        console.log("A zero", conv);
+        conv = 0;
+        speed = 1;
+      }
+    }
   });
 }
 
 function draw() {
   if (state == 1) {
     conv = (millis() - tiemStarted) / 1000;
+    speed = 1 + (millis() - tiemStarted) / 1000;
   }
   background(0, 0, 0);
   translate(width / 2, height / 2);
